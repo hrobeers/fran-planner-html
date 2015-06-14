@@ -1,16 +1,44 @@
 function load_moments(callback)
 {
-    var moments = mock_moments;
-    callback(moments);
+    var moments;
+    if (!config.mock_data)
+    {
+	$.get(config.ws_root + "/moments", function(data) {
+	    callback(data);
+	})
+	.fail(function() {
+	    alert( "error" );
+	});
+    }
+    else
+    {
+	var moments = mock_moments;
+	callback(moments);
+    }
 }
 
 function load_attendances_for(moment_id, callback)
 {
-    var coll = {
-	attendances: _.filter(mock_attendances.attendances, function(att){ return att.moment_id == moment_id; }),
-	moment_id: moment_id
-    };
-    callback(coll);
+    if (!config.mock_data)
+    {
+	$.get(config.ws_root + "/attendances?moment_id=" + moment_id, function(data) {
+	    data.moment_id = moment_id;
+	    callback(data);
+	})
+	.fail(function() {
+	    alert( "error" );
+	});
+    }
+    else
+    {
+	var coll = {
+	    attendances: _.filter(mock_attendances.attendances, function(att){
+		return att.moment_id == moment_id;
+	    }),
+	    moment_id: moment_id
+	};
+	callback(coll);
+    }
 }
 
 function create_attendance(attendance, callback)
