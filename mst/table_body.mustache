@@ -2,13 +2,18 @@
   <tr>
     <td>{{name}}</td>
     <td>{{count}}</td>
-    <td class="fit"><input type="reset" value="x" class="button table-button"></td>
+    <td class="fit">
+      <input type="reset" value="x" class="button table-button"
+      onclick="remove_attendance({{id}},{{moment_id}})">
+    </td>
   </tr>
 {{/attendances}}
 <tr>
-  <td class="fit"><input type="text" id="name" class="col" placeholder="Wie zijn jullie..."></td>
+  <td class="fit">
+    <input type="text" id="input_name_{{moment_id}}" class="col" placeholder="Wie zijn jullie...">
+  </td>
   <td>
-    <select name="age" id="age">
+    <select id="input_count_{{moment_id}}">
       <optgroup>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -21,5 +26,8 @@
         <option value="9">9</option>
     </select>
   </td>
-  <td class="fit"><input type="submit" value="+" class="button add-button table-button"></td>
+  <td class="fit">
+    <input type="submit" value="+" class="button add-button table-button"
+    onclick="insert_attendance({{moment_id}})">
+  </td>
 </tr>

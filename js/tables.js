@@ -7,11 +7,7 @@ function render_tables(table_div)
 		$(table_div).html(rendered);
 
 		moments.moments.forEach(function(moment) {
-		    load_attendances_for(moment.id, function(attendances) {
-			$.get('/mst/table_body.mustache', function(body_template) {
-			    $('#table_'+moment.id).html(Mustache.render(body_template, attendances));
-			});
-		    });
+		    render_table_body(moment.id);
 		});
 	    });
 	});
@@ -27,6 +23,38 @@ function render_summary(table_div)
 		$(table_div).html(rendered);
 	    });
 	});
+    });
+}
+
+function render_table_body(moment_id)
+{
+    load_attendances_for(moment_id, function(attendances) {
+	$.get('/mst/table_body.mustache', function(body_template) {
+	    $('#table_'+moment_id).html(Mustache.render(body_template, attendances));
+	});
+    });
+}
+
+function insert_attendance(moment_id)
+{
+    var new_attendance = {
+	moment_id: moment_id,
+	name: $('#input_name_' + moment_id).val(),
+	count: $('#input_count_' + moment_id).val()
+    };
+
+    if (new_attendance.name === "")
+	return;
+
+    create_attendance(new_attendance, function() {
+	render_table_body(moment_id);
+    });
+}
+
+function remove_attendance(attendance_id, moment_id)
+{
+    delete_attendance(attendance_id, function() {
+	render_table_body(moment_id);
     });
 }
 

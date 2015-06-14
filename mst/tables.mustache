@@ -1,19 +1,19 @@
 {{#moments}}
-    <a name="moment_{{id}}"/>
-    <table style="width:100%">
-      <caption>
-        <b>{{date}} {{location}}
-          <br/>{{starttime}} - {{endtime}}
-          <br/>Aantal bezoekers: {{max_count}}
-          </b>
-      </caption>
-      <thead>
-        <tr><th>Naam</th>
-        <th class="count">Aantal</th>
-        <th class="narrow"></th></tr>
-      </thead>
-      <tbody id="table_{{id}}">
-        <tr><td colspan="3"><center><img id='loader' src='img/loader.gif' /></center></td></tr>
-      </tbody>
-    </table>
+  <a name="moment_{{id}}"/>
+  <table style="width:100%">
+    <caption>
+      <b>{{date}} {{location}}
+        <br/>{{starttime}} - {{endtime}}
+        <br/>Aantal bezoekers: {{max_count}}
+        </b>
+    </caption>
+    <thead>
+      <tr><th>Naam</th>
+      <th class="count">Aantal</th>
+      <th class="narrow"></th></tr>
+    </thead>
+    <tbody id="table_{{id}}">
+      <tr><td colspan="3"><center><img id='loader' src='img/loader.gif' /></center></td></tr>
+    </tbody>
+  </table>
 {{/moments}}

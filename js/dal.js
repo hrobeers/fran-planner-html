@@ -7,9 +7,24 @@ function load_moments(callback)
 function load_attendances_for(moment_id, callback)
 {
     var coll = {
-	attendances: _.filter(mock_attendances.attendances, function(att){ return att.moment_id == moment_id; })
+	attendances: _.filter(mock_attendances.attendances, function(att){ return att.moment_id == moment_id; }),
+	moment_id: moment_id
     };
     callback(coll);
+}
+
+function create_attendance(attendance, callback)
+{
+    mock_attendances.attendances.push(attendance);
+    callback();
+}
+
+function delete_attendance(attendance_id, callback)
+{
+    mock_attendances.attendances =  _.filter(mock_attendances.attendances, function(att){
+	return att.id != attendance_id;
+    });
+    callback();
 }
 
 var mock_moments = JSON.parse('{"moments":[\
