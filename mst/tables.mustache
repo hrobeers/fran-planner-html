@@ -12,30 +12,8 @@
         <th class="count">Aantal</th>
         <th class="narrow"></th></tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Smith</td>
-          <td>50</td>
-          <td class="fit"><input type="reset" value="x" class="button table-button"></td>
-        </tr>
-        <tr>
-          <td class="fit"><input type="text" id="name" class="col" placeholder="Wie zijn jullie..."></td>
-          <td>
-            <select name="age" id="age">
-              <optgroup>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-            </select>
-          </td>
-          <td class="fit"><input type="submit" value="+" class="button add-button table-button"></td>
-        </tr>
+      <tbody id="table_{{id}}">
+        <tr><td colspan="3"><center><img id='loader' src='img/loader.gif' /></center></td></tr>
       </tbody>
     </table>
 {{/moments}}

@@ -1,29 +1,33 @@
-var moments = JSON.parse('{"moments":[{"starttime":"16:00:00","max_count":7,"location":"Gasthuis","id":1,"endtime":"17:00:00","date":"2015-05-05"},{"starttime":"18:00:00","max_count":5,"location":"Gasthuis","id":2,"endtime":"20:00:00","date":"2015-05-05"},{"starttime":"16:00:00","max_count":6,"location":"Thuis","id":3,"endtime":"17:00:00","date":"2015-05-07"}]}');
-
 function render_tables(table_div)
 {
-    loader(table_div,
-	   function()
-	   {
-	       $.get('/mst/tables.mustache', function(template) {
-		   var rendered = Mustache.render(template, moments);
-		   $(table_div).html(rendered);
-	       });
-	   }
-	  );
+    loader(table_div, function() {
+	$.get('/mst/tables.mustache', function(template) {
+	    load_moments(function(moments) {
+		var rendered = Mustache.render(template, moments);
+		$(table_div).html(rendered);
+
+		moments.moments.forEach(function(moment) {
+		    load_attendances_for(moment.id, function(attendances) {
+			$.get('/mst/table_body.mustache', function(body_template) {
+			    $('#table_'+moment.id).html(Mustache.render(body_template, attendances));
+			});
+		    });
+		});
+	    });
+	});
+    });
 }
 
 function render_summary(table_div)
 {
-    loader(table_div,
-	   function()
-	   {
-	       $.get('/mst/summary.mustache', function(template) {
-		   var rendered = Mustache.render(template, moments);
-		   $(table_div).html(rendered);
-	       });
-	   }
-	  );
+    loader(table_div, function() {
+	$.get('/mst/summary.mustache', function(template) {
+	    load_moments(function(moments) {
+		var rendered = Mustache.render(template, moments);
+		$(table_div).html(rendered);
+	    });
+	});
+    });
 }
 
 function loader(div, render_func)
