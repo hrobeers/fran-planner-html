@@ -1,0 +1,28 @@
+td.count {
+    width: 100px;
+}
+th.count {
+    width: 100px;
+}
+
+td.narrow {
+    width: 50px;
+}
+th.narrow {
+    width: 50px;
+}
+
+.add-button {
+    background-color: #27AE61;
+}
+.add-button:hover {
+    background-color: #2CC86F;
+}
+.table-button {
+    padding: 0.3em 0em;
+}
+
+input
+{
+    width: 100%;
+}

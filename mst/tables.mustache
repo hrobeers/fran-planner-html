@@ -1,0 +1,38 @@
+{{#moments}}
+  <div class="col">
+    <table style="width:100%" id="table">
+      <caption>
+        <b>{{date}} {{location}}
+          <br/>{{starttime}} - {{endtime}}
+          <br/>Aantal bezoekers: {{max_count}}
+          </b>
+      </caption>
+      <thead>
+        <tr><th>Naam</th>
+        <th class="count">Aantal</th>
+        <th class="narrow"></th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Smith</td>
+          <td class="count">50</td>
+          <td class="narrow fit"><input type="reset" value="x" class="button table-button"></td>
+        </tr>
+        <tr>
+          <td class="fit"><input type="text" id="name" class="col" placeholder="Wie zijn jullie..."></td>
+          <td class="count">
+            <select class="col" name="age" id="age">
+              <optgroup>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+          </td>
+          <td class="narrow fit"><input type="submit" value="+" class="button add-button table-button"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{{/moments}}
