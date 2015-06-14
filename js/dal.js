@@ -43,17 +43,53 @@ function load_attendances_for(moment_id, callback)
 
 function create_attendance(attendance, callback)
 {
-    mock_attendances.attendances.push(attendance);
-    callback();
+    if (!config.mock_data)
+    {
+	postJson(config.ws_root + "/attendances", { attendance: attendance })
+	    .done(function(data) {
+		callback();
+	    });
+    }
+    else
+    {
+	mock_attendances.attendances.push(attendance);
+	callback();
+    }
 }
 
 function delete_attendance(attendance_id, callback)
 {
-    mock_attendances.attendances =  _.filter(mock_attendances.attendances, function(att){
-	return att.id != attendance_id;
-    });
-    callback();
+    if (!config.mock_data)
+    {
+	ajaxDelete(config.ws_root + "/attendances/" + attendance_id)
+	    .done(function(data) {
+		callback();
+	    });
+    }
+    else
+    {
+	mock_attendances.attendances =  _.filter(mock_attendances.attendances, function(att){
+	    return att.id != attendance_id;
+	});
+	callback();
+    }
 }
+
+function postJson(url, data) {
+    return $.ajax({
+        'type': 'POST',
+        'url': url,
+        'contentType': 'application/json',
+        'data': JSON.stringify(data)
+    });
+};
+
+function ajaxDelete(url) {
+    return $.ajax({
+        'type': 'DELETE',
+        'url': url
+    });
+};
 
 var mock_moments = JSON.parse('{"moments":[\
 {"starttime":"16:00:00","max_count":7,"location":"Gasthuis","id":1,"endtime":"17:00:00","date":"2015-05-05"},\
