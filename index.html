@@ -21,8 +21,6 @@
 <body>
 
 
-
-
 <div class="header dark-blue-row">
   <div class="container row-2">
     <h1>Fran Planner</h1>
@@ -31,31 +29,28 @@
 
 <div class="grey-row">
   <div class="container row-2">
-    <div class="row clear">
-      <div class="col col-1-2 mobile-full">
-	Left
-      </div>
-      <div class="col col-1-2 mobile-full">
-        Right
-      </div>
-      <div class="col col-1-2 mobile-full">
-        Third
-      </div>
-    </div>
+    <div class="clear row" id="summary_div"></div>
   </div>
 </div>
 
 <div class="white-row">
-  <div class="container row-2" id="tables_div">
+  <div class="container row-2">
+    <div class="clear row" id="tables_div"></div>
   </div>
 </div>
 
+<div class="dark-blue-row">
+  <div class="container row-2">
+    <div class="clear row">info</div>
+  </div>
+</div>
 
 <script src="lib/jquery-2.1.1.min.js"></script>
 <script src="lib/mustache.min.js"></script>
 <script src="js/tables.js"></script>
 
 <script type="text/javascript">
+  render_summary("#summary_div");
   render_tables("#tables_div");
 </script>
 
