@@ -16,14 +16,15 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/custom.css">
   <script src="lib/modernizr.js"></script>
+  <script src="lib/moment-with-locales.min.js"></script>
   <script src="config.js"></script>
 </head>
 <body>
 
 
-<div class="header dark-blue-row">
+<div class="header dark-blue-row bgimg bgtop">
   <div class="container row-2">
-    <h1>Fran Planner</h1>
+      <h1><span>Fran Planner</span></h1>
   </div>
 </div>
 
@@ -39,9 +40,13 @@
   </div>
 </div>
 
-<div class="dark-blue-row">
+<div class="dark-blue-row bgimg bgbot">
   <div class="container row-2">
-    <div class="clear row">info</div>
+    <div class="clear row">
+      Powered by
+      <br/><a class="highlight" href="http://www.phoenixframework.org/">Phoenix framework</a>
+      <br/><a class="highlight" href="https://github.com/janl/mustache.js">MustacheJs</a>
+    </div>
   </div>
 </div>
 

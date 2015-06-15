@@ -1,5 +1,5 @@
 th.count {
-    width: 70px;
+    width: 80px;
 }
 
 th.narrow {
@@ -18,4 +18,20 @@ th.narrow {
 
 input {
     width: 100%;
+}
+
+.bgimg {
+    background-image: url('/img/bg.jpg');
+    background-size: 100%;
+    min-width: 401px;
+}
+.bgtop {
+    background-position: top;
+}
+.bgbot {
+    background-position: bottom;
+}
+
+.highlight {
+    background-color: rgba(0, 0, 0, 0.3);
 }

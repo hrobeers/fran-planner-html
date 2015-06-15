@@ -1,13 +1,15 @@
+$.support.cors = true;
+
 function load_moments(callback)
 {
     var moments;
     if (!config.mock_data)
     {
-	$.get(config.ws_root + "/moments", function(data) {
+	$.get(config.ws_root + "/moments?from_today", function(data) {
 	    callback(readify_moments(data));
 	})
-	.fail(function() {
-	    alert( "error" );
+        .fail(function(xhr, txt, err) {
+	    alert( "Error: " + err );
 	});
     }
     else
@@ -24,8 +26,8 @@ function load_attendances_for(moment_id, callback)
 	    data.moment_id = moment_id;
 	    callback(data);
 	})
-	.fail(function() {
-	    alert( "error" );
+	.fail(function(xhr, txt, err) {
+	    alert( "Error: " + err );
 	});
     }
     else
@@ -91,10 +93,10 @@ function ajaxDelete(url) {
 };
 
 function readify_moments(moments) {
-    moments.moments.forEach(function(moment) {
-	moment.date = new Date(moment.date).toLocaleDateString();
-	moment.starttime = moment.starttime.substring(0, moment.starttime.length - 3);
-	moment.endtime = moment.endtime.substring(0, moment.endtime.length - 3);
+    moments.moments.forEach(function(m) {
+	m.date = moment(m.date).format("dd D MMMM");
+	m.starttime = m.starttime.substring(0, m.starttime.length - 3);
+	m.endtime = m.endtime.substring(0, m.endtime.length - 3);
     });
     return moments;
 }
