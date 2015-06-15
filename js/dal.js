@@ -4,7 +4,7 @@ function load_moments(callback)
     if (!config.mock_data)
     {
 	$.get(config.ws_root + "/moments", function(data) {
-	    callback(data);
+	    callback(readify_moments(data));
 	})
 	.fail(function() {
 	    alert( "error" );
@@ -12,8 +12,7 @@ function load_moments(callback)
     }
     else
     {
-	var moments = mock_moments;
-	callback(moments);
+	callback(readify_moments(mock_moments));
     }
 }
 
@@ -90,6 +89,15 @@ function ajaxDelete(url) {
         'url': url
     });
 };
+
+function readify_moments(moments) {
+    moments.moments.forEach(function(moment) {
+	moment.date = new Date(moment.date).toLocaleDateString();
+	moment.starttime = moment.starttime.substring(0, moment.starttime.length - 3);
+	moment.endtime = moment.endtime.substring(0, moment.endtime.length - 3);
+    });
+    return moments;
+}
 
 var mock_moments = JSON.parse('{"moments":[\
 {"starttime":"16:00:00","max_count":7,"location":"Gasthuis","id":1,"endtime":"17:00:00","date":"2015-05-05"},\
