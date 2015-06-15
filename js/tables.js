@@ -1,27 +1,31 @@
-function render_tables(table_div)
+function render(summary_div, tables_div)
+{
+    load_moments(function(moments) {
+	render_summary(summary_div, moments);
+	render_tables(tables_div, moments);
+    });
+}
+
+function render_tables(table_div, moments)
 {
     loader(table_div, function() {
 	$.get('/mst/tables.mustache', function(template) {
-	    load_moments(function(moments) {
-		var rendered = Mustache.render(template, moments);
-		$(table_div).html(rendered);
+	    var rendered = Mustache.render(template, moments);
+	    $(table_div).html(rendered);
 
-		moments.moments.forEach(function(moment) {
-		    render_table_body(moment.id);
-		});
+	    moments.moments.forEach(function(moment) {
+		render_table_body(moment.id);
 	    });
 	});
     });
 }
 
-function render_summary(table_div)
+function render_summary(table_div, moments)
 {
     loader(table_div, function() {
 	$.get('/mst/summary.mustache', function(template) {
-	    load_moments(function(moments) {
-		var rendered = Mustache.render(template, moments);
-		$(table_div).html(rendered);
-	    });
+	    var rendered = Mustache.render(template, moments);
+	    $(table_div).html(rendered);
 	});
     });
 }
@@ -46,6 +50,7 @@ function insert_attendance(moment_id)
     if (new_attendance.name === "")
 	return;
 
+    table_loader(moment_id);
     create_attendance(new_attendance, function() {
 	render_table_body(moment_id);
     });
@@ -53,6 +58,7 @@ function insert_attendance(moment_id)
 
 function remove_attendance(attendance_id, moment_id)
 {
+    table_loader(moment_id);
     delete_attendance(attendance_id, function() {
 	render_table_body(moment_id);
     });
@@ -60,8 +66,13 @@ function remove_attendance(attendance_id, moment_id)
 
 function loader(div, render_func)
 {
-    $(div).html("<center><img id='loader' src='img/loader.gif' /></center>");
+    $(div).html("<center><img src='img/loader.gif'/></center>");
     render_func();
+}
+
+function table_loader(moment_id)
+{
+    $("#table_" + moment_id).html('<tr><td colspan="3"><center><img src="img/loader.gif"/></center></td></tr>');
 }
 
 function transpose_table(table_id){

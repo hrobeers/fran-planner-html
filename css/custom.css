@@ -23,7 +23,6 @@ input {
 .bgimg {
     background-image: url('/img/bg.jpg');
     background-size: 100%;
-    min-width: 401px;
 }
 .bgtop {
     background-position: top;

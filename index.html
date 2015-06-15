@@ -30,7 +30,7 @@
 
 <div class="grey-row">
   <div class="container row-2">
-    <div class="clear row" id="summary_div"></div>
+    <div class="clear text-center" id="summary_div"></div>
   </div>
 </div>
 
@@ -41,11 +41,17 @@
 </div>
 
 <div class="dark-blue-row bgimg bgbot">
-  <div class="container row-2">
+  <div class="container row-1">
     <div class="clear row">
-      Powered by
-      <br/><a class="highlight" href="http://www.phoenixframework.org/">Phoenix framework</a>
-      <br/><a class="highlight" href="https://github.com/janl/mustache.js">MustacheJs</a>
+      <div class="col col-6">
+	Powered by
+	<br/><a class="highlight" href="http://www.phoenixframework.org/">Phoenix framework</a>
+	<br/><a class="highlight" href="https://github.com/janl/mustache.js">MustacheJs</a>
+      </div>
+      <div class="col col-6 text-right">
+	Fork me
+	<br/><a class="highlight" href="https://github.com/hrobeers/fran-planner">Fran Planner</a>
+      </div>
     </div>
   </div>
 </div>
@@ -57,11 +63,8 @@
 <script src="js/tables.js"></script>
 
 <script type="text/javascript">
-  render_summary("#summary_div");
-  render_tables("#tables_div");
+  render("#summary_div", "#tables_div");
 </script>
-
-<!-- Analytics -->
 
 </body>
 </html>
