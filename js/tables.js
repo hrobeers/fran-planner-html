@@ -1,3 +1,6 @@
+var attendance_counts = []; // populated in table_body.mustache
+var max_attendance_counts = []; // populated in render_tables
+
 function render(summary_div, tables_div)
 {
     load_moments(function(moments) {
@@ -15,6 +18,7 @@ function render_tables(table_div, moments)
 
 	    moments.moments.forEach(function(moment) {
 		render_table_body(moment.id);
+		max_attendance_counts[moment.id] = moment.max_count;
 	    });
 	});
     });
@@ -49,6 +53,17 @@ function insert_attendance(moment_id)
 
     if (new_attendance.name === "")
 	return;
+
+    if (attendance_counts[moment_id] >= max_attendance_counts[moment_id])
+    {
+	var r = confirm("Het maximum aantal bezoekers is reeds bereikt." +
+			"\nUiteraard zijn jullie nog steeds welkom, maar misschien past een andere datum ook?" +
+			"\n\nKlik OK als jullie toch op deze datum willen komen." +
+			"\nKlik Cancel als jullie een andere datum willen kiezen.");
+	if (r != true) {
+	    return;
+	}
+    }
 
     table_loader(moment_id);
     create_attendance(new_attendance, function() {

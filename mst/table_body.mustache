@@ -31,3 +31,10 @@
     onclick="insert_attendance({{moment_id}})">
   </td>
 </tr>
+
+<script type="text/javascript">
+attendance_counts[{{moment_id}}] = 0;
+{{#attendances}}
+  attendance_counts[{{moment_id}}] += {{count}};
+{{/attendances}}
+</script>
