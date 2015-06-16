@@ -4,16 +4,17 @@
     <td>{{count}}</td>
     <td class="fit">
       <input type="reset" value="x" class="button table-button"
-      onclick="remove_attendance({{id}},{{moment_id}})">
+      onclick="remove_attendance({{id}},{{moment_id}})" title="Verwijder deze aanwezigheid">
     </td>
   </tr>
 {{/attendances}}
 <tr>
   <td class="fit">
-    <input type="text" id="input_name_{{moment_id}}" class="col" placeholder="Plan hier je bezoek...">
+    <input type="text" id="input_name_{{moment_id}}" class="col"
+    placeholder="Plan hier je bezoek..." title="Geef aan wie jullie zijn">
   </td>
   <td>
-    <select id="input_count_{{moment_id}}">
+    <select id="input_count_{{moment_id}}" title="Geef het aantal aanwezigen aan">
       <optgroup>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -28,7 +29,7 @@
   </td>
   <td class="fit">
     <input type="submit" value="+" class="button add-button table-button"
-    onclick="insert_attendance({{moment_id}})">
+    onclick="insert_attendance({{moment_id}})" title="Voeg deze aanwezigheid toe">
   </td>
 </tr>
 
