@@ -1,5 +1,5 @@
 var config={
-    mock_data: false,
+    mock_data: true,
     ws_root: "http://localhost:4000/api"
 };
 
