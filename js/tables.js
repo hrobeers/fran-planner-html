@@ -3,34 +3,34 @@ var max_attendance_counts = []; // populated in render_tables
 
 function render(summary_div, tables_div)
 {
-    load_moments(function(moments) {
-	render_summary(summary_div, moments);
-	render_tables(tables_div, moments);
-    });
+    loader(summary_div, function() { loader(tables_div, function() {
+
+	load_moments(function(moments) {
+	    render_summary(summary_div, moments);
+	    render_tables(tables_div, moments);
+	})
+
+    })});
 }
 
 function render_tables(table_div, moments)
 {
-    loader(table_div, function() {
-	$.get('/mst/tables.mustache', function(template) {
-	    var rendered = Mustache.render(template, moments);
-	    $(table_div).html(rendered);
+    $.get('/mst/tables.mustache', function(template) {
+	var rendered = Mustache.render(template, moments);
+	$(table_div).html(rendered);
 
-	    moments.moments.forEach(function(moment) {
-		render_table_body(moment.id);
-		max_attendance_counts[moment.id] = moment.max_count;
-	    });
+	moments.moments.forEach(function(moment) {
+	    render_table_body(moment.id);
+	    max_attendance_counts[moment.id] = moment.max_count;
 	});
     });
 }
 
 function render_summary(table_div, moments)
 {
-    loader(table_div, function() {
-	$.get('/mst/summary.mustache', function(template) {
-	    var rendered = Mustache.render(template, moments);
-	    $(table_div).html(rendered);
-	});
+    $.get('/mst/summary.mustache', function(template) {
+	var rendered = Mustache.render(template, moments);
+	$(table_div).html(rendered);
     });
 }
 
