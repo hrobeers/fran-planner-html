@@ -15,7 +15,7 @@ function render(summary_div, tables_div)
 
 function render_tables(table_div, moments)
 {
-    $.get('/mst/tables.mustache', function(template) {
+    $.get('mst/tables.mustache', function(template) {
 	var rendered = Mustache.render(template, moments);
 	$(table_div).html(rendered);
 
@@ -28,7 +28,7 @@ function render_tables(table_div, moments)
 
 function render_summary(table_div, moments)
 {
-    $.get('/mst/summary.mustache', function(template) {
+    $.get('mst/summary.mustache', function(template) {
 	var rendered = Mustache.render(template, moments);
 	$(table_div).html(rendered);
     });
