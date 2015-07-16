@@ -37,7 +37,7 @@ function render_summary(table_div, moments)
 function render_table_body(moment_id)
 {
     load_attendances_for(moment_id, function(attendances) {
-	$.get('/mst/table_body.mustache', function(body_template) {
+	$.get('mst/table_body.mustache', function(body_template) {
 	    $('#table_'+moment_id).html(Mustache.render(body_template, attendances));
 	});
     });
