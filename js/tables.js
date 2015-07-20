@@ -5,10 +5,10 @@ function render(summary_div, tables_div)
 {
     loader(summary_div, function() { loader(tables_div, function() {
 
-	load_moments(function(moments) {
-	    render_summary(summary_div, moments);
-	    render_tables(tables_div, moments);
-	})
+        load_moments(function(moments) {
+            render_summary(summary_div, moments);
+            render_tables(tables_div, moments);
+        })
 
     })});
 }
@@ -16,66 +16,74 @@ function render(summary_div, tables_div)
 function render_tables(table_div, moments)
 {
     $.get('mst/tables.mustache', function(template) {
-	var rendered = Mustache.render(template, moments);
-	$(table_div).html(rendered);
+        var rendered = Mustache.render(template, moments);
+        $(table_div).html(rendered);
 
-	moments.moments.forEach(function(moment) {
-	    render_table_body(moment.id);
-	    max_attendance_counts[moment.id] = moment.max_count;
-	});
+        moments.moments.forEach(function(moment) {
+            render_table_body(moment.id);
+            max_attendance_counts[moment.id] = moment.max_count;
+        });
     });
 }
 
 function render_summary(table_div, moments)
 {
     $.get('mst/summary.mustache', function(template) {
-	var rendered = Mustache.render(template, moments);
-	$(table_div).html(rendered);
+        var rendered = Mustache.render(template, moments);
+        $(table_div).html(rendered);
     });
 }
 
 function render_table_body(moment_id)
 {
     load_attendances_for(moment_id, function(attendances) {
-	$.get('mst/table_body.mustache', function(body_template) {
-	    $('#table_'+moment_id).html(Mustache.render(body_template, attendances));
-	});
+        $.get('mst/table_body.mustache', function(body_template) {
+            $('#table_'+moment_id).html(Mustache.render(body_template, attendances));
+        });
     });
 }
 
 function insert_attendance(moment_id)
 {
     var new_attendance = {
-	moment_id: moment_id,
-	name: $('#input_name_' + moment_id).val(),
-	count: $('#input_count_' + moment_id).val()
+        moment_id: moment_id,
+        name: $('#input_name_' + moment_id).val(),
+        count: $('#input_count_' + moment_id).val()
     };
 
     if (new_attendance.name === "")
-	return;
+        return;
 
     if (attendance_counts[moment_id] >= max_attendance_counts[moment_id])
     {
-	var r = confirm("Het maximum aantal bezoekers is reeds bereikt." +
-			"\nUiteraard zijn jullie nog steeds welkom, maar misschien past een andere datum ook?" +
-			"\n\nKlik OK als jullie toch op deze datum willen komen." +
-			"\nKlik Cancel als jullie een andere datum willen kiezen.");
-	if (r != true) {
-	    return;
-	}
+        var r = confirm("Het maximum aantal bezoekers is reeds bereikt." +
+                        "\nUiteraard zijn jullie nog steeds welkom, maar misschien past een andere datum ook?" +
+                        "\n\nKlik OK als jullie toch op deze datum willen komen." +
+                        "\nKlik Cancel als jullie een andere datum willen kiezen.");
+        if (r != true) {
+            return;
+        }
     }
 
     table_loader(moment_id);
     create_attendance(new_attendance, function() {
-	render_table_body(moment_id);
+        render_table_body(moment_id);
     });
+}
+
+function remove_attendance_alert(attendance_id, moment_id, name)
+{
+    var r = confirm('Ben je zeker dat je aanwezigheid "' + name + '" wilt verwijderen?');
+    if (r == true) {
+        remove_attendance(attendance_id, moment_id);
+    }
 }
 
 function remove_attendance(attendance_id, moment_id)
 {
     table_loader(moment_id);
     delete_attendance(attendance_id, function() {
-	render_table_body(moment_id);
+        render_table_body(moment_id);
     });
 }
 
